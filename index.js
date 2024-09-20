@@ -77,10 +77,13 @@ function fastifyExpress(fastify, options, next) {
    * @param {import("fastify").FastifyRequest} req
    */
   function runConnect(req, reply, next) {
+    const url = req.raw.url;
+    const method = req.raw.method.toUpperCase();
     const hasRoute = req.server.findRoute({
-      url: req.routeOptions.url,
-      method: req.routeOptions.method.toUpperCase(),
+      url,
+      method,
     });
+
     if (
       this[kMiddlewares].length > 0 &&
       (!hasRoute || req.routeOptions.config.useExpressMiddleware)
@@ -93,13 +96,13 @@ function fastifyExpress(fastify, options, next) {
 
       if (req.routeOptions.url && req.routeOptions.method) {
         req.log.debug(
-          `[fastify-express] running express middleware on route {url: ${req.routeOptions.url}, method: ${req.routeOptions.method}`,
+          `[fastify-express] running express middleware on route {url: ${url}, method: ${method}`,
         );
       }
       this.express(req.raw, reply.raw, next);
     } else {
       req.log.debug(
-        `[fastify-express] skipping express middleware on route {url: ${req.routeOptions.url}, method: ${req.routeOptions.method}`,
+        `[fastify-express] skipping express middleware on route {url: ${url}, method: ${method}`,
       );
       next();
     }
