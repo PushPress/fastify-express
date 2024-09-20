@@ -74,11 +74,12 @@ function fastifyExpress(fastify, options, next) {
    * only run middleware on routes that have not been registered with fastify (unless opt in)
    * middleware should be run as hooks with fastify routes for compatibility with fastify.inject
    * and for performance
+   * @param {import("fastify").FastifyRequest} req
    */
   function runConnect(req, reply, next) {
-    const hasRoute = req.server.hasRoute({
+    const hasRoute = req.server.findRoute({
       url: req.routeOptions.url,
-      method: req.routeOptions.method,
+      method: req.routeOptions.method.toUpperCase(),
     });
     if (
       this[kMiddlewares].length > 0 &&
