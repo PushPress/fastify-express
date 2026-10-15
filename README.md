@@ -1,5 +1,8 @@
 # @pushpress/fastify-express
 
+> [!WARNING]
+> This repository is deprecated. `@pushpress/fastify-express` has moved to [`packages/fastify-express` in PushPress-Services](https://github.com/PushPress/PushPress-Services/tree/develop/packages/fastify-express). Please make future changes there. This repository is no longer maintained.
+
 forked from [fastify/fastify-express](github.com/fastify/fastify-express) with the following changes:
 
 - express middleware on a fastify route is deprecated and opt in only since it is incompatible with light-my-request http injection
